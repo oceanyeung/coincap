@@ -15,10 +15,10 @@
             <li class="nav-item"><a href="#" class="nav-link active">Coins <span class="sr-only">(Current)</span></a></li>
             <li class="nav-item"><a href="#" class="nav-link">Exchanges</a></li>
         </ul>
-        <form class="form-inline my-2 my-lg-0">
+        <div class="form-inline my-2 my-lg-0">
             <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" />
             <button class="btn btn-outline-success my-2 my-sm-0">Search</button>
-        </form>
+        </div>
     </nav>
     
     <div class="container">
@@ -29,18 +29,24 @@
                 <tr>
                     <th>#</th>
                     <th>Coin</th>
-                    <th>Price</th>
-                    <th>1h</th>
-                    <th>24h</th>
-                    <th>7d</th>
-                    <th>24h Volume</th>
-                    <th>Mkt Cap</th>
+                    <th class="text-center">Price</th>
+                    <th class="text-center">1h</th>
+                    <th class="text-center">24h</th>
+                    <th class="text-center">7d</th>
+                    <th class="text-center">24h Volume</th>
+                    <th class="text-center">Mkt Cap</th>
                     <th>Last 7 Days</th>
                 </tr>
             </thead>
 
             <tbody id="coins"></tbody>
         </table>
+
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center" id="pager">
+              
+            </ul>
+          </nav>
     </div>
 </body>
 </html>

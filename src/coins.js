@@ -67,7 +67,7 @@ export default class Coins {
 
             let tr = `<tr>` + 
                         `<td>${market_cap_rank ? market_cap_rank : ''}</td>` +
-                        `<td>${name} ${symbol.toUpperCase()}</td>` +
+                        `<td>${name} <span class="symbol">${symbol.toUpperCase()}</span></td>` +
                         `<td class="text-right">${this.formatCurrency(current_price)}</td>` +
                         `<td class="text-right ${this.getColorClass(price_change_percentage_1h_in_currency)}">${this.formatPercentage(price_change_percentage_1h_in_currency)}</td>` +
                         `<td class="text-right ${this.getColorClass(price_change_percentage_24h_in_currency)}">${this.formatPercentage(price_change_percentage_24h_in_currency)}</td>` + 

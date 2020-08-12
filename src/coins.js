@@ -32,34 +32,32 @@ export default class Coins {
         return '';
     }
 
-    static sortData(data, sortfield, sortorder) {
-        let direction = sortorder == 'asc' ? 1 : -1;
-        let numericSort = (a,b) => (a[sortfield] - b[sortfield]) * direction;
-        let textSort = (a,b) => (a[sortfield].toLowerCase() < b[sortfield].toLowerCase() ? -1 : 1) * direction;
+    static sortData(data, sortField, sortOrder) {
+        let direction = sortOrder == 'asc' ? 1 : -1;
+        let numericSort = (a,b) => (a[sortField] - b[sortField]) * direction;
+        let textSort = (a,b) => (a[sortField].toLowerCase() < b[sortField].toLowerCase() ? -1 : 1) * direction;
         let sortMethod = numericSort;
 
-        switch (sortfield.toLowerCase()) {
-            case 'rank': sortfield = 'market_cap_rank'; break;
+        switch (sortField.toLowerCase()) {
+            case 'rank': sortField = 'market_cap_rank'; break;
             case 'symbol': {
-                sortfield = 'symbol'; 
+                sortField = 'symbol'; 
                 sortMethod = textSort;
                 break;
             }
-            case 'price': sortfield = 'current_price'; break;
-            case '1h': sortfield = 'price_change_percentage_1h_in_currency'; break;
-            case '24h': sortfield = 'price_change_percentage_24h_in_currency'; break;
-            case '7d': sortfield = 'price_change_percentage_7d_in_currency'; break;
-            case '24hvolume': sortfield = 'total_volume'; break;
-            default: sortfield = 'market_cap'; break;
+            case 'price': sortField = 'current_price'; break;
+            case '1h': sortField = 'price_change_percentage_1h_in_currency'; break;
+            case '24h': sortField = 'price_change_percentage_24h_in_currency'; break;
+            case '7d': sortField = 'price_change_percentage_7d_in_currency'; break;
+            case '24hvolume': sortField = 'total_volume'; break;
+            default: sortField = 'market_cap'; break;
         }
 
         data.sort(sortMethod);
         return data;
     }
 
-    static generateCoinTable(container, data, pagenum, pagesize) {
-        let rankOffset = (pagenum-1) * pagesize + 1;
-
+    static generateCoinTable(container, data) {
         for (let i=0; i < data.length; i++) {
             let {name, symbol, current_price, total_volume, 
                  market_cap, market_cap_rank, price_change_percentage_7d_in_currency, 
@@ -80,19 +78,19 @@ export default class Coins {
         }
     }
 
-    static generateCoinTableHeader(container, {sortfield, sortorder, pagenum, pagesize}) {
-        let link = (text, field, default_sortorder = 'desc') => {
-            let newSortOrder = default_sortorder;
-            if (sortfield == field) {
-                // reverse sortorder for current sortfield
-                newSortOrder = (sortorder == 'asc') ? 'desc' : 'asc';
+    static generateCoinTableHeader(container, {sortfield: sortField, sortorder: sortOrder, pagenum: pageNum, pagesize: pageSize}) {
+        let link = (text, field, default_sortOrder = 'desc') => {
+            let newsortOrder = default_sortOrder;
+            if (sortField == field) {
+                // reverse sortOrder for current sortField
+                newsortOrder = (sortOrder == 'asc') ? 'desc' : 'asc';
             }
-            return `<a href="index.html?sortfield=${field}&sortorder=${newSortOrder}&pagenum=${pagenum}&pagesize=${pagesize}">${text}</a>`;
+            return `<a href="index.html?sortfield=${field}&sortorder=${newsortOrder}&pagenum=${pageNum}&pagesize=${pageSize}">${text}</a>`;
         };
 
         let generateSortArrow = (field) => {
-            if (field == sortfield) {
-                if (sortorder == 'asc') {
+            if (field == sortField) {
+                if (sortOrder == 'asc') {
                     return '<i class="fas fa-chevron-up"></i>';
                 } else {
                     return '<i class="fas fa-chevron-down"></i>';
@@ -115,7 +113,6 @@ export default class Coins {
                 generateHeader('7d', '7d', 'text-center') +
                 generateHeader('24h Volume', '24hvolume', 'text-center') +
                 generateHeader('Mkt Cap', 'marketcap', 'text-center') +
-                `<th>Last 7 Days</th>` +
             "</tr>"
         );
     }

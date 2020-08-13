@@ -6,31 +6,47 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.1/css/bootstrap.min.css" integrity="sha384-VCmXjywReHh4PwowAiWNagnWcLhlEJLA5buUprzK8rxFgeH0kww/aWY76TfkUoSX" crossorigin="anonymous" />
     <script src="https://kit.fontawesome.com/08fc441dff.js" crossorigin="anonymous"></script>
     <link href="styles/styles.css" rel="stylesheet" type="text/css" />
-    <script type="module" src="./src/main.js"></script>
+    <script type="module" src="./src/exchange.js"></script>
 </head>
 <body>
     <header id="header"></header>
     
     <div class="container">
-        <h3>Coins</h3>
+        <h3 class="text-center">Crypto Exchanges</h3>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-sm">
+                    Page size: 
+                    <a href="exchange.html?pagesize=50&pagenum=1">50</a> | 
+                    <a href="exchange.html?pagesize=200&pagenum=1">100</a> | 
+                    <a href="exchange.html?pagesize=250&pagenum=1">250</a>
+                </div>
+                <div class="col-sm">
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination justify-content-center" id="pagerTop"></ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
 
         <table class="table">
             <thead id="header_row"></thead>
 
-            <tbody id="coins"></tbody>
+            <tbody id="exchanges"></tbody>
         </table>
 
         <div class="container">
             <div class="row">
                 <div class="col-sm">
                     Page size: 
-                    <a href="index.html?pagesize=50&pagenum=1">50</a> | 
-                    <a href="index.html?pagesize=200&pagenum=1">100</a> | 
-                    <a href="index.html?pagesize=250&pagenum=1">250</a>
+                    <a href="exchange.html?pagesize=50&pagenum=1">50</a> | 
+                    <a href="exchange.html?pagesize=200&pagenum=1">100</a> | 
+                    <a href="exchange.html?pagesize=250&pagenum=1">250</a>
                 </div>
                 <div class="col-sm">
                     <nav aria-label="Page navigation example">
-                        <ul class="pagination justify-content-center" id="pager"></ul>
+                        <ul class="pagination justify-content-center" id="pagerBottom"></ul>
                     </nav>
                 </div>
             </div>

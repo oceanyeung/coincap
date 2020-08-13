@@ -1,6 +1,12 @@
 import NumberUtil from './numberutil.js';
 
 export default class Page {
+    static globalStats = {};
+
+    static setGlobalStats(data) {
+        this.globalStats = data;
+    }
+    
     static params = {
         pagenum: 1,
         pagesize: 100,
@@ -10,10 +16,15 @@ export default class Page {
         sortorder: 'desc'
     };
 
+    static Pages = {
+        index: 'index.html',
+        exchanges: 'exchange.html'
+    }
+
     static hash;
 
-    static setPageParameters(totalActive) {
-        this.params.totalPage = Math.ceil(totalActive / this.params.pagesize);
+    static setPagingParameters(totalItems) {
+        this.params.totalPage = Math.ceil(totalItems / this.params.pagesize);
         this.params.pagenum = NumberUtil.clamp(this.params.pagenum, 1, this.params.totalPage);
     }
 

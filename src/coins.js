@@ -1,25 +1,7 @@
+import Page from './page.js';
+import NumberUtil from './numberutil.js';
+
 export default class Coins {
-    static totalActive = 0;
-
-    static formatCurrency(val, digits=2) {
-        if (Number(val) >= 1) {
-            // >= $1.00, only shows at most 2 decimals by default
-            return new Intl.NumberFormat('en-us', { style: 'currency', currency: 'USD', minimumFractionDigits: digits }).format(val);
-        } 
-
-        // < $1.00, shows up to 6 decimals
-        return new Intl.NumberFormat('en-us', { style: 'currency', currency: 'USD', maximumSignificantDigits: 6 }).format(val);
-    }
-
-    static formatPercentage(val, digits=2) {
-        return new Intl.NumberFormat('en-us', { maximumFractionDigits: digits }).format(val) + '%';
-    }
-
-    static setGlobalStats(data) {
-        // totalActive is used to determine how many pages of coins there are
-        this.totalActive = data.active_cryptocurrencies;
-    }
-
     static getColorClass(val) {
         if (Number(val) < 0) {
             return 'text-danger';
@@ -57,35 +39,35 @@ export default class Coins {
         return data;
     }
 
-    static generateCoinTable(container, data) {
+    static generateTable(container, data) {
         for (let i=0; i < data.length; i++) {
             let {name, symbol, current_price, total_volume, 
                  market_cap, market_cap_rank, price_change_percentage_7d_in_currency, 
-                 price_change_percentage_1h_in_currency, price_change_percentage_24h_in_currency } = data[i];
+                 price_change_percentage_1h_in_currency, price_change_percentage_24h_in_currency, image } = data[i];
 
             let tr = `<tr>` + 
                         `<td>${market_cap_rank ? market_cap_rank : ''}</td>` +
-                        `<td>${name} <span class="symbol">${symbol.toUpperCase()}</span></td>` +
-                        `<td class="text-right">${this.formatCurrency(current_price)}</td>` +
-                        `<td class="text-right ${this.getColorClass(price_change_percentage_1h_in_currency)}">${this.formatPercentage(price_change_percentage_1h_in_currency)}</td>` +
-                        `<td class="text-right ${this.getColorClass(price_change_percentage_24h_in_currency)}">${this.formatPercentage(price_change_percentage_24h_in_currency)}</td>` + 
-                        `<td class="text-right ${this.getColorClass(price_change_percentage_7d_in_currency)}">${this.formatPercentage(price_change_percentage_7d_in_currency)}</td>` + 
-                        `<td class="text-right">${this.formatCurrency(total_volume, 0)}</td>` +
-                        `<td class="text-right">${this.formatCurrency(market_cap, 0)}<td><td></td>` +
+                        `<td><img src="${image}" width=30 class="mr-2" /> ${name} <span class="symbol">${symbol.toUpperCase()}</span></td>` +
+                        `<td class="text-right">${NumberUtil.formatCurrency(current_price)}</td>` +
+                        `<td class="text-right ${this.getColorClass(price_change_percentage_1h_in_currency)}">${NumberUtil.formatPercentage(price_change_percentage_1h_in_currency)}</td>` +
+                        `<td class="text-right ${this.getColorClass(price_change_percentage_24h_in_currency)}">${NumberUtil.formatPercentage(price_change_percentage_24h_in_currency)}</td>` + 
+                        `<td class="text-right ${this.getColorClass(price_change_percentage_7d_in_currency)}">${NumberUtil.formatPercentage(price_change_percentage_7d_in_currency)}</td>` + 
+                        `<td class="text-right">${NumberUtil.formatCurrency(total_volume, 0)}</td>` +
+                        `<td class="text-right">${NumberUtil.formatCurrency(market_cap, 0)}<td><td></td>` +
                     `</tr>`;
 
             container.append(tr);
         }
     }
 
-    static generateCoinTableHeader(container, {sortfield: sortField, sortorder: sortOrder, pagenum: pageNum, pagesize: pageSize}) {
+    static generateTableHeader(container, {sortfield: sortField, sortorder: sortOrder, pagenum: pageNum, pagesize: pageSize}) {
         let link = (text, field, default_sortOrder = 'desc') => {
             let newsortOrder = default_sortOrder;
             if (sortField == field) {
                 // reverse sortOrder for current sortField
                 newsortOrder = (sortOrder == 'asc') ? 'desc' : 'asc';
             }
-            return `<a href="index.html?sortfield=${field}&sortorder=${newsortOrder}&pagenum=${pageNum}&pagesize=${pageSize}">${text}</a>`;
+            return `<a href="${Page.Pages.index}?sortfield=${field}&sortorder=${newsortOrder}&pagenum=${pageNum}&pagesize=${pageSize}">${text}</a>`;
         };
 
         let generateSortArrow = (field) => {

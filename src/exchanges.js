@@ -37,7 +37,7 @@ export default class Exchanges {
                         `<td class="btccol text-right">${NumberUtil.formatNumber(trade_volume_24h_btc_normalized)}</td>` +
                         `<td class="text-right pr-4">${NumberUtil.formatNumber(trade_volume_24h_btc)}</td>` +
                         `<td>${country ?? ''}</td>` +
-                        `<td>${year_established ?? '' }</td>` +
+                        `<td class="text-center">${year_established ?? '' }</td>` +
                     `</tr>`;
 
             container.append(tr);

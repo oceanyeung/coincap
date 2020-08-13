@@ -5,7 +5,7 @@ import Widgets from './widgets.js';
 import NumberUtil from './numberutil.js';
 
 $(document).ready(() => {
-    $('#header').append(Widgets.generateHeader());
+    $('#header').append(Widgets.generateHeader(Page.Pages.index));
 
     // Get the overriding params from url
     Page.processUrl(window.location.href);
@@ -13,18 +13,19 @@ $(document).ready(() => {
 
     Api.loadGlobalStats().then(resp => {
         resp.json().then(data => {
-            Coins.setGlobalStats(data.data);
+            Page.setGlobalStats(data.data);
 
-            Page.setPageParameters(Coins.totalActive);
+            Page.setPagingParameters(Page.globalStats.active_cryptocurrencies);
 
-            let pageButtons = Widgets.generatePager('index.html', Page.params);
-            $("#pager").append(pageButtons);
+            let pageButtons = Widgets.generatePager(Page.Pages.index, Page.params);
+            $("#pagerTop").append(pageButtons);
+            $("#pagerBottom").append(pageButtons);
 
             Api.loadCoins(Page.params).then(resp => {
                 resp.json().then(data => {
                     Coins.sortData(data, Page.params.sortfield, Page.params.sortorder);
-                    Coins.generateCoinTableHeader($("#header_row"), Page.params);
-                    Coins.generateCoinTable($("#coins"), data);
+                    Coins.generateTableHeader($("#header_row"), Page.params);
+                    Coins.generateTable($("#coins"), data);
                 });
             });
         });

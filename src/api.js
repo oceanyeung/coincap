@@ -1,6 +1,7 @@
 export default class Api {
     static provider = 'https://api.coingecko.com/api/v3/';
     static marketApi = 'coins/markets';
+    static exchangesApi = 'exchanges';
     static globalApi = 'global';
 
     static loadCoins({pagesize, pagenum, currency}) {
@@ -10,6 +11,11 @@ export default class Api {
 
     static loadGlobalStats() {
         let url = this.provider + this.globalApi;
+        return fetch(url);
+    }
+
+    static loadExchanges({pagesize, pagenum}) {
+        let url = this.provider + this.exchangesApi + `?per_page=${pagesize}&page=${pagenum}`;
         return fetch(url);
     }
 }

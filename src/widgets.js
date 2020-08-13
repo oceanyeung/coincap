@@ -1,10 +1,18 @@
+import Page from './page.js';
+
 export default class Widgets {
-    static generateHeader() {
+    static generateHeader(currentPage) {
+        let generatePageLink = (displayName, pageLink) => {
+            return (currentPage == pageLink) ? 
+                `<a href="${pageLink}" class="nav-link active">${displayName} <span class="sr-only">(Current)</span></a>` :
+                `<a href="${pageLink}" class="nav-link">${displayName}</a>`;
+        };
+
         return '<nav class="navbar navbar-expand-sm bg-dark navbar-dark">' +
-                    '<a class="navbar-brand" href="#">Coincap</a>' +
+                    `<a class="navbar-brand" href="${Page.Pages.index}">Coincap</a>` +
                     '<ul class="navbar-nav mr-auto mt-2 mt-lg-0">' +
-                        '<li class="nav-item"><a href="#" class="nav-link active">Coins <span class="sr-only">(Current)</span></a></li>' +
-                        '<li class="nav-item"><a href="#" class="nav-link">Exchanges</a></li>' +
+                        `<li class="nav-item">${generatePageLink("Coins", Page.Pages.index)}</li>` +
+                        `<li class="nav-item">${generatePageLink("Exchanges", Page.Pages.exchanges)}</li>` +
                     '</ul>' +
                     '<div class="form-inline my-2 my-lg-0">' +
                         '<input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" />' +
@@ -13,7 +21,7 @@ export default class Widgets {
                 '</nav>';
     }
 
-    static generatePageLink(baseLink = 'index.html', targetPage, text = targetPage, pageSize, sortField, sortOrder) {
+    static generatePageLink(baseLink = Page.Pages.index, targetPage, text = targetPage, pageSize, sortField, sortOrder) {
         return `<a class="page-link" href="${baseLink}?pagenum=${targetPage}&pagesize=${pageSize}&sortorder=${sortOrder}&sortfield=${sortField}">${text}</a>`
     }
 
@@ -27,7 +35,7 @@ export default class Widgets {
         }
     }
 
-    static generatePager(baseLink, { pagenum: currentPage, pagesize: pageSize, totalPage, sortfield: sortField, sortorder: sortOrder }) {
+    static generatePager(baseLink, { totalPage, pagenum: currentPage, pagesize: pageSize, sortfield: sortField, sortorder: sortOrder }) {
         let pageButtons = '';
         let start = 1;
         let end = currentPage + 2;

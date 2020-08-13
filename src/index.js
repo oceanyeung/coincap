@@ -17,9 +17,8 @@ $(document).ready(() => {
 
             Page.setPagingParameters(Page.globalStats.active_cryptocurrencies);
 
-            let pageButtons = Widgets.generatePager(Page.Pages.index, Page.params);
-            $("#pagerTop").append(pageButtons);
-            $("#pagerBottom").append(pageButtons);
+            Widgets.generatePagingContainer($('#pagingContainerTop'), Page.Pages.index, Page.params);
+            Widgets.generatePagingContainer($('#pagingContainerBottom'), Page.Pages.index, Page.params);
 
             Api.loadCoins(Page.params).then(resp => {
                 resp.json().then(data => {

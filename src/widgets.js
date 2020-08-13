@@ -80,4 +80,22 @@ export default class Widgets {
 
         return pageButtons
     }
+
+    static generatePagingContainer(container, baseLink, params) {
+        container.append('<div class="row">' +
+            '<div class="col-sm">' +
+                'Page size: ' +
+                '<a href="exchange.html?pagesize=50&pagenum=1">50</a> | '+
+                '<a href="exchange.html?pagesize=100&pagenum=1">100</a> | ' +
+                '<a href="exchange.html?pagesize=250&pagenum=1">250</a>' +
+            '</div>' +
+            '<div class="col-sm">' +
+                '<nav aria-label="Page navigation example">' +
+                    '<ul class="pagination justify-content-center">' +
+                    this.generatePager(baseLink, params) +
+                    '</ul>' +
+                '</nav>' +
+            '</div>' +
+        '</div>');
+    }
 }

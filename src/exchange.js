@@ -20,17 +20,8 @@ $(document).ready(() => {
 
             Page.setPagingParameters(299);
 
-            let pageButtons = Widgets.generatePager(Page.Pages.exchanges, Page.params);
-            $("#pagerTop").append(pageButtons);
-            $("#pagerBottom").append(pageButtons);
-
-    //         Api.loadCoins(Page.params).then(resp => {
-    //             resp.json().then(data => {
-    //                 Coins.sortData(data, Page.params.sortfield, Page.params.sortorder);
-    //                 Coins.generateCoinTableHeader($("#header_row"), Page.params);
-    //                 Coins.generateCoinTable($("#coins"), data);
-    //             });
-            //});
+            Widgets.generatePagingContainer($('#pagingContainerTop'), Page.Pages.exchanges, Page.params);
+            Widgets.generatePagingContainer($('#pagingContainerBottom'), Page.Pages.exchanges, Page.params);
         });
     });
 
